@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const dns = require('dns');
 const bodyParser = require('body-parser');
+const { URL } = require('url');
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -31,7 +32,7 @@ app.post('/api/shorturl', function(req, res) {
   console.log('req.body is: ', req.body);
   console.log(`url is: ${url}`);
 
-  const urlPattern = /^(http|https):\/\/([^\/]+)/;
+  /* const urlPattern = /^(http|https):\/\/([^\/]+)/;
   const match = url.match(urlPattern);
 
   if (!match) {
@@ -45,8 +46,10 @@ app.post('/api/shorturl', function(req, res) {
     }
   }
 
-  const hostname = match[2];
-
+  const hostname = match[2]; */
+  let hostname;
+  const parsedUrl = new URL(url);
+  hostname = parsedUrl.hostname;
 
   dns.lookup(hostname, (err,address) => {
     if (err) {
