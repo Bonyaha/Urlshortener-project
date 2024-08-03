@@ -64,7 +64,7 @@ app.post('/api/shorturl', function(req, res) {
 
 // Endpoint to redirect to original URL
 app.get('/api/shorturl/:shortUrl', function(req, res) {
-  const shortUrl = req.params.shortUrl;
+  const shortUrl = Number(req.params.shortUrl);
   const originalUrl = urlDatabase[shortUrl];
 
   if (originalUrl) {
