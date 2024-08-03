@@ -43,7 +43,7 @@ app.post('/api/shorturl', function(req, res) {
       return res.json({ original_url: url, short_url: shortUrl });
     }
   }
-  
+
   const hostname = match[2];
 
 
@@ -55,7 +55,7 @@ app.post('/api/shorturl', function(req, res) {
     const shortUrl = urlCounter++;
     urlDatabase[shortUrl] = url;
     console.log(`Address: ${address}`);
-    res.json({ original_url: url, short_url: shortUrl });
+    res.json({ original_url: url, short_url: Number(shortUrl)});
   });
  
   console.log('urlDatabase:', urlDatabase);
