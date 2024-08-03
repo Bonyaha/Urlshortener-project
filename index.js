@@ -37,6 +37,13 @@ app.post('/api/shorturl', function(req, res) {
     return res.json({ error: 'invalid url' });
   }
 
+   // Check if the URL already exists in the database
+   for (const shortUrl in urlDatabase) {
+    if (urlDatabase[shortUrl] === url) {
+      return res.json({ original_url: url, short_url: shortUrl });
+    }
+  }
+  
   const hostname = match[2];
 
 
@@ -50,7 +57,8 @@ app.post('/api/shorturl', function(req, res) {
     console.log(`Address: ${address}`);
     res.json({ original_url: url, short_url: shortUrl });
   });
-
+ 
+  console.log('urlDatabase:', urlDatabase);
 })
 
 // Endpoint to redirect to original URL
@@ -65,6 +73,8 @@ app.get('/api/shorturl/:shortUrl', function(req, res) {
   }
 });
 
+
 app.listen(port, function() {
-  console.log(`Listening on port ${port}`);
+  console.log(`Listening on port ${port}`); 
+  
 });
