@@ -31,24 +31,11 @@ app.post('/api/shorturl', function(req, res) {
   const { url } = req.body;
   console.log('req.body is: ', req.body);
   console.log(`url is: ${url}`);
+  console.log('URL is: ', URL);
 
-  /* const urlPattern = /^(http|https):\/\/([^\/]+)/;
-  const match = url.match(urlPattern);
-
-  if (!match) {
-    return res.json({ error: 'invalid url' });
-  }
-
-   // Check if the URL already exists in the database
-   for (const shortUrl in urlDatabase) {
-    if (urlDatabase[shortUrl] === url) {
-      return res.json({ original_url: url, short_url: Number(shortUrl) });
-    }
-  }
-
-  const hostname = match[2]; */
   let hostname;
   const parsedUrl = new URL(url);
+  console.log('parsedUrl: ', parsedUrl);
   hostname = parsedUrl.hostname;
 
   dns.lookup(hostname, (err,address) => {
